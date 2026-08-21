@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+smartmacro_aldi.db
+weekly_plan.ics
