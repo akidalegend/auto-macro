@@ -40,8 +40,8 @@ def build_weekly_plan(use_llm: bool = True) -> dict:
         )
         try:
             plan["llm_summary"] = llm_engine.generate(llm_prompt)
-        except Exception as exc:  # pragma: no cover - best-effort optional integration
-            plan["llm_summary"] = f"LLM summary unavailable: {exc}"
+        except Exception:  # pragma: no cover - best-effort optional integration
+            plan["llm_summary"] = "LLM summary unavailable."
     else:
         plan["llm_summary"] = "LLM summary skipped."
 
@@ -65,7 +65,6 @@ def main() -> None:
         send_telegram_message(bot_token, chat_id, plan.get("llm_summary", plan["summary_text"]))
 
     print(plan["summary_text"])
-    print(f"\nSummary:\n{plan.get('llm_summary', '')}")
     print(f"\nCalendar exported to: {plan['calendar_path']}")
 
 
